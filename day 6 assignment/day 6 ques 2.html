@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>
+day 6 assignment
+</title>
+<script>
+let bus=[
+{"name":"",
+"source": "",
+"destination": "",
+"number": "",
+"passenger capacity":"" 
+}];
+function store()
+{
+var name=document.getElementById("name").value;
+var source=document.getElementById("source").value;
+var destination=document.getElementById("destination").value;
+var number=document.getElementById("number").value;
+var passnum=document.getElementById("passenger").value;
+
+localStorage.setItem("name",name);
+localStorage.setItem("source",source);
+localStorage.setItem("destination",destination);
+localStorage.setItem("number",number);
+localStorage.setItem("passengernum",passnum);
+
+var table = document.getElementById("myTable");
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+var cell2 = row.insertCell(1);
+var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);  
+var cell5 = row.insertCell(4);
+cell1.innerHTML=localStorage.getItem("name");
+cell2.innerHTML=localStorage.getItem("source");
+cell3.innerHTML=localStorage.getItem("destination");
+cell4.innerHTML=localStorage.getItem("number");
+cell5.innerHTML=localStorage.getItem("passengernum");
+}
+</script>
+</head>
+<body>
+Add New Bus
+<form>
+Name<input type="text" id="name"/>
+Source<input type="text" id="source"/>
+Destination<input type="text" id="destination"/>
+Number<input type="text" id="number"/>
+Passenger capacity<input type="text" id="passenger"/>
+<button type="button" id="submit" onclick="store()">submit</button>
+</form>
+<table border="solid" width="100%" id="myTable">
+<tr>
+<th>Name</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Number</th>
+<th>Passenger Capacity</th>
+</tr>
+</table>
+SEARCH<br/>
+Enter Source
+<input type="text" id="sources1"/>
+<button type="button" onclick="search()">search</button><br/>
+OR<br/>
+Enter Destination
+<input type="text" id="destinations1"/>
+<button type="button" onclick="search1()">search</button><br/>
+<table border="solid" width="100%" id="table2">
+<tr>
+<td id="names"> </td>
+<td id="sources"> </td>
+<td id="destinations"> </td>
+<td id="numbers"> </td>
+<td id="passnums"> </td>
+</tr>
+</table>
+<script>
+document.getElementById("table2").style.display="none";
+function search()
+{
+var y=localStorage.getItem("source")
+var x=document.getElementById("sources1").value;
+for( i=0;i<2;i++)
+{
+if(y==x)
+{
+document.getElementById("table2").style.display="table";
+document.getElementById("names").innerHTML=localStorage.getItem("name");
+document.getElementById("sources").innerHTML=y;
+document.getElementById("destinations").innerHTML=localStorage.getItem("destination");
+document.getElementById("numbers").innerHTML=localStorage.getItem("number");
+document.getElementById("passnums").innerHTML=localStorage.getItem("passengernum");
+}
+}
+}
+
+function search()
+{
+var y=localStorage.getItem("destination")
+var x=document.getElementById("destinations1").value;
+for( i=0;i<2;i++)
+{
+if(y==x)
+{
+document.getElementById("table2").style.display="table";
+document.getElementById("names").innerHTML=localStorage.getItem("name");
+document.getElementById("sources").innerHTML=localStorage.getItem("source");
+document.getElementById("destinations").innerHTML=y;
+document.getElementById("numbers").innerHTML=localStorage.getItem("number");
+document.getElementById("passnums").innerHTML=localStorage.getItem("passengernum");
+}
+}
+}
+</script>
+</body>
+</html>

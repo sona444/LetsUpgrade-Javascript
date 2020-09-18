@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>
+day 6 assignment
+</title>
+<script>
+let people=[
+{
+"name":"sonakshi",
+"age":18,
+"city":"New delhi",
+"salary":"10000"
+},
+{
+"name":"himani",
+"age":33,
+"city":"West delhi",
+"salary":"50000"
+}
+];
+</script>
+</head>
+<body>
+Search<br>
+Enter name
+<input type="text" id="search"/>
+<button type="button" onclick = "search()">search</button><br/>
+OR<br/>
+Enter City
+<input type="text" id="search2"/>
+<button type="button" onclick = "search1()">search</button><br/>
+Delete<br/>
+<button type="button" onclick="delet()">Delete</button>
+<table border="solid" width="100%" id="table2">
+<tr>
+<td id="names"></td>
+<td id="ages"></td>
+<td id="citys"></td>
+<td id="salarys"></td>
+</tr>
+</table>
+<table border="solid" width="100%" id="table1">
+<tr>
+<th>Name</th>
+<th>Age</th>
+<th>City</th>
+<th>Salary</th>
+</tr>
+<tr>
+<td id="name1"></td>
+<td id="age1"></td>
+<td id="city1"></td>
+<td id="salary1"></td>
+</tr>
+<tr>
+<td id="name2"></td>
+<td id="age2"></td>
+<td id="city2"></td>
+<td id="salary2"></td>
+</tr>
+</table>
+<script>
+document.getElementById("name1").innerHTML=people[0].name;
+document.getElementById("age1").innerHTML=people[0].age;
+document.getElementById("city1").innerHTML=people[0].city;
+document.getElementById("salary1").innerHTML=people[0].salary;
+document.getElementById("name2").innerHTML=people[1].name;
+document.getElementById("age2").innerHTML=people[1].age;
+document.getElementById("city2").innerHTML=people[1].city;
+document.getElementById("salary2").innerHTML=people[1].salary;
+function search()
+{
+var x=document.getElementById("search").value;
+for( i=0;i<2;i++)
+{
+if(people[i].name==x)
+{
+document.getElementById("names").innerHTML=people[i].name;
+document.getElementById("ages").innerHTML=people[i].age;
+document.getElementById("citys").innerHTML=people[i].city;
+document.getElementById("salarys").innerHTML=people[i].salary;
+}
+}
+}
+function search1()
+{
+var x=document.getElementById("search2").value;
+for( i=0;i<2;i++)
+{
+if(people[i].city==x)
+{
+document.getElementById("names").innerHTML=people[i].name;
+document.getElementById("ages").innerHTML=people[i].age;
+document.getElementById("citys").innerHTML=people[i].city;
+document.getElementById("salarys").innerHTML=people[i].salary;
+}
+}
+}
+function delet()
+{
+document.getElementById("table1").deleteRow(2);
+document.getElementById("table1").deleteRow(1);
+}
+</script>
+</body>
+</html>

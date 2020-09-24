@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 4</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .header {
+            height: 70px;
+            width: 100%;
+            background-color: lightgray;
+            line-height: 70px;
+        }
+
+        h1 {
+            margin-left: 50px;
+            display: inline-block;
+            width: 30%;
+            vertical-align: top;
+        }
+
+        .search {
+            height: 70px;
+            width: 60%;
+            display: inline-block;
+        }
+
+        .search input {
+            height: 40px;
+            width: 100%;
+            text-indent: 20px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            outline: none;
+        }
+
+        .products {
+            height: auto;
+            /* width: 100%;
+            background-color: gray; */
+        }
+
+        .productwrapper {
+            height: auto;
+            width: 80%;
+            /* background-color: green; */
+            margin-left: 10%;
+            margin-bottom: 50px;
+        }
+
+        .product {
+            height: auto;
+            width: 25%;
+            /* background-color: red; */
+            display: inline-block;
+            margin-top: 25px;
+            margin-left: 65px;
+            border: 1px solid lightgray;
+        }
+
+        .prodimg {
+            display:block;
+            height: 300px;
+            width: 100%;
+            /* background-color: yellow; */
+            overflow: hidden;
+        }
+
+        .product h3,
+        .product p {
+            padding: 5px;
+            padding-left: 10px;
+        }
+
+        .product p {
+            color: gray;
+        }
+
+        button {
+            padding: 10px;
+        }
+    </style>
+    
+
+</head>
+<body>
+
+    <div class="header">
+        <h1>Shopping 360</h1>
+        <div class="search">
+            <input type="search" onkeyup="searchProduct(this.value)" placeholder="Search a product" />
+        </div>
+    </div>
+
+    <div class="products">
+        <div class="productwrapper" id="productwrapper"></div>
+    </div>
+    <div class="products">
+        <h1>CART</h1>
+        <div class="productwrapper" id="cart"></div>
+    </div>
+      <button><h3><a href="#">Filter by price</a></h3></button>
+      <input type="number" id="min" onkeyup="search()" placeholder="min price"> 
+      <input type="number" id="max" onkeyup="search()" placeholder="max price">
+    <script>
+        let products = [
+            {
+                name: "Full Sleeves Suit",
+                size: "M",
+                color: "Cream",
+                price: 1749,
+                image: "a.jpg",
+                description: "Trending full sleeves elegant suit"
+            },
+            {
+                name: "White Top",
+                size: "S",
+                color: "White",
+                price: 1249,
+                image: "b.jpg",
+                description: "White designer dress"
+            },
+            {
+                name: "Indo Western Dress",
+                size: "M",
+                color: "Navy blue",
+                price: 1500,
+                image: "c.jpg",
+                description: "indo western designer dress"
+            },
+            {
+                name: "Men's Shirt",
+                size: "S",
+                color: "White",
+                price: 999,
+                image: "d.jpg",
+                description: "White designer sleeveless dress"
+            },
+            {
+                name: "cool hoody",
+                size: "L",
+                color: "dark Blue",
+                price: 1999,
+                image: "e.jpg",
+                description: "Long full sleeves ethnic wear"
+            },
+            {
+                name: "Men's Shirt",
+                size: "L",
+                color: "White",
+                price: 1999,
+                image: "f.jpg",
+                description: "Long full sleeves ethnic wear"
+            }
+        ];
+        
+        cart = [];
+        
+        function displayProducts(productsData, who = "productwrapper") {
+            let productsString = "";
+            productsData.forEach(function (product, index) {
+        
+                let { name, size, color, price, image, description } = product;
+                let productString = JSON.stringify(product);
+        
+                if (who == "productwrapper") {
+                    productsString += `<div class="product">
+                         <div class="prodimg">
+                             <img src="${image}" width="100%"/>
+                         </div>
+                         <h3>${name}</h3>
+                         <p>Price: ${price}</p>
+                         <p>Size: ${size}</p>
+                         <p>Color: ${color}</p>
+                         <p>${description}</p>
+                         <p>
+                             <button onclick="addToCart(${index})">Add to Cart</button>
+                         </p>
+                    </div>`;
+                }
+                else if (who == "cart") {
+                    productsString += `<div class="product">
+                         <div class="prodimg">
+                             <img src="${image}" width="100%"/>
+                         </div>
+                         <h3>${name}</h3>
+                         <p>Price: ${price}</p>
+                         <p>Size: ${size}</p>
+                         <p>Color: ${color}</p>
+                         <p>${description}</p>
+                         <p>
+                             <button onclick="removeFromCart(${index})">Remove from Cart</button>
+                         </p>
+                    </div>`;
+                }
+        
+            });
+            document.getElementById(who).innerHTML = productsString;
+        }
+        
+        displayProducts(products);
+        
+        function searchProduct(searchvalue)
+        {
+            let searchProduct = products.filter(function (product, index) {
+                let searchString = product.name + " " + product.price + " " + product.size + " " + product.color + " " + product.description;
+                return searchString.toLowerCase().indexOf(searchvalue.toLowerCase()) != -1;
+            })
+             displayProducts(searchProduct);
+        }
+        
+        
+        function addToCart(index) {
+            cart.push(products[index]);
+            displayProducts(cart, "cart");
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayProducts(cart, "cart");
+        }
+
+        function search()
+{
+    let min = (document.getElementById("min").value != 0)? document.getElementById("min").value:500;
+    let max = (document.getElementById("max").value != 0)? document.getElementById("max").value:2500;
+    let p = stockProducts.filter(function(elem){
+        return (elem.price>=min && elem.price<=max);
+    });
+    display(p);
+    
+}
+
+//check the product that already exists in cart or not?
+function checkCart(id)
+{
+    return cart.filter(function(elem){
+        return elem.id == id ? true:false;
+    })
+}
+        </script>
+</body>
+
+</html>
